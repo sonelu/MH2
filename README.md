@@ -11,10 +11,10 @@ The main features of the robot are:
   - Quad-Core Allwinner H5 processor at 1.5GHz
   - 1GB RAM
   - only 7g weight
-* Custom add-on board with:
+* [Custom add-on board](add-on.md) with:
   - 4 channels Dynamixel bus (provided by a [FTDI4232H](https://www.ftdichip.com/Support/Documents/DataSheets/Modules/DS_FT4232H_Mini_Module.pdf) (USB to UART 4 channels)
   - [LSM330](https://media.digikey.com/pdf/Data%20Sheets/ST%20Microelectronics%20PDFS/LSM330.pdf) 6 axis IMU (accelerometer and gyroscope)
-  - [Murata 5V 1.A high performance DC/DC convertor](https://power.murata.com/data/power/oki-78sr.pdf)
+  - [Murata 5V 1.5A high performance DC/DC convertor](https://power.murata.com/data/power/oki-78sr.pdf)
 * 5MP USB camera (in the head)
 * 1.5" 128x128 pixel OLED display (I2C SSD1327 chip)
 * 8 tactile switches controlled with a TCA9538 I2C I/O expander providing easy interation with the menues on display

@@ -1,0 +1,151 @@
+{
+    "status": {
+        "class": "StatusScreen",
+        "title": "MH2 Status",
+        "navigation": { 
+            "I": "positions",
+            "M": "topMenu"
+        }
+    },
+
+    "positions": {
+        "class": "PositionScreen",
+        "title": "Servo Positions",
+        "navigation": { 
+            "I": "temperatures",
+            "M": "topMenu"
+        }
+    },
+
+    "temperatures": {
+        "class": "TemperatureScreen",
+        "title": "Temperatures",
+        "navigation": { 
+            "I": "status",
+            "M": "topMenu"
+        }
+    },
+
+    "shutDown": {
+        "class": "MenuScreen",
+        "title": "Shut Down",
+        "options": ["Stop MH2 software" , "Reset SoC", "Power down SoC", "cancel"],
+        "navigation": {
+            "I": "status",
+            "M": "topMenu",
+            "U": true,
+            "D": true,
+            "F": ["__action__", "__action__", "__action__", "status"],
+            "B": "status"
+        },
+        "actions": ["stopRobot", "resetSoC", "powerDown", "None"]
+    },
+
+    "topMenu" : {
+        "class": "MenuScreen",
+        "title": "Top Menu",
+        "options": ["Compliance", "Primitives" , "System"],
+        "navigation": {
+            "I": "status",
+            "U": true,
+            "D": true,
+            "F": ["compliance", "primitives", "system"]
+        },
+        "actions": ["None", "None"]
+    },
+
+    "compliance" : {
+        "class": "MenuScreen",
+        "title": "Compliance",
+        "options": ["Comliance On" , "Compliance Off", "Hands Compliant", "Legs Compliant", "Head Compliant"],
+        "navigation": {
+            "I": "status",
+            "U": true,
+            "D": true,
+            "F": ["__action__", "__action__", "__action__", "__action__", "__action__"],
+            "B": "topMenu"
+        },
+        "actions": ["turnCompliantOn", "turnCompliantOff", "turnHandsCompliant", "turnLegsCompliant", "turnHeadCompliant"]
+    },
+
+    "primitives" : {
+        "class": "MenuScreen",
+        "title": "Primitives",
+        "options": ["Posture" , "Interaction"],
+        "navigation": {
+            "I": "status",
+            "U": true,
+            "D": true,
+            "F": ["posture", "interaction"],
+            "B": "topMenu"
+        },
+        "actions": ["None", "None"]
+    },
+
+    "posture" : {
+        "class": "MenuScreen",
+        "title": "Posture",
+        "options": ["Stand Up", "Sit Down", "Head Idle"],
+        "navigation": {
+            "I": "status",
+            "U": true,
+            "D": true,
+            "F": ["__action__", "__action__", "__action__"],
+            "B": "primitives",
+            "M": "topMenu"
+        },
+        "actions": ["startStandUp", "startSitDown", "startHeadIdle"]
+    },
+    
+    "interaction" : {
+        "class": "MenuScreen",
+        "title": "Interaction",
+        "options": ["Wave Left", "Wave Both"],
+        "navigation": {
+            "I": "status",
+            "U": true,
+            "D": true,
+            "F": ["__action__", "__action__"],
+            "B": "primitives",
+            "M": "topMenu"
+        },
+        "actions": ["startWaveLeft", "startWaveBoth"]
+    },
+
+    "system" : {
+        "class": "MenuScreen",
+        "title": "System",
+        "options": ["Govenor"],
+        "navigation": {
+            "I": "status",
+            "U": true,
+            "D": true,
+            "F": ["governor"],
+            "B": "topMenu"
+        },
+        "actions": ["None", "None"]
+    },
+
+    "governor" : {
+        "class": "MenuScreen",
+        "title": "Governor",
+        "options": ["Performance", "On demand", "Power save", "Conservative"],
+        "navigation": {
+            "I": "status",
+            "U": true,
+            "D": true,
+            "F": ["__action__", "__action__", "__action__", "__action__"],
+            "B": "topMenu"
+        },
+        "actions": ["governorPerformance", "governorOnDemand", "governorPowerSave", "governorConservative"]
+    },
+
+    "info" : {
+        "class": "InfoScreen",
+        "title": "<tbd>",
+        "navigation": {
+            "I": "status",
+            "B": "<tbd"
+        }
+    }
+}

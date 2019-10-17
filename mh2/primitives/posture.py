@@ -71,8 +71,8 @@ class Balance(pypot.primitive.LoopPrimitive):
     def __init__(self, robot, freq):
        super(Balance, self).__init__(robot, freq)
        self.accel = LSM330()
-       self.ax_p = 0.0015 # P factor for accelerometer X direction
-       self.ax_i = 1e-5   # I factor for accelerometer X direction
+       self.ax_p = 0.001 # P factor for accelerometer X direction
+       self.ax_i = 5e-6   # I factor for accelerometer X direction
        self.ax_E = 0
        self.ax_limits = [-25.0, 25.0]
        self.compliant = True

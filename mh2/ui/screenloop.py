@@ -10,10 +10,13 @@ from luma.oled.device import ssd1327
 
 import json
 import time
+import numpy as np
 
 
 class UIScreenLoop(pypot.utils.StoppableLoopThread):
 
+    _history_file = '/home/pi/mh2/etc/battery.dat'
+     
     def __init__(self, robot, screen_config, freq=2.0):
         # we have higher frequency to allow better read of buttons
         pypot.utils.StoppableLoopThread.__init__(self, freq)
@@ -24,7 +27,26 @@ class UIScreenLoop(pypot.utils.StoppableLoopThread):
         with open(screen_config) as f:
             self.screens = json.load(f)
         self.currscreen = 'status'
-        self.screen = self.screen_from_config(self.screens[self.currscreen])        
+        self.screen = self.screen_from_config(self.screens[self.currscreen])
+        # battery voltage reading
+        # self.robot.volt = 0                 # current battery
+        # self.robot.volt_per = 0             # current battery percentage
+        # self.volt_samples = 0               # we will do a running average
+        # self.SAMPLES_LIMIT = 10             # number of samples for the average
+        # # voltage history
+        try:
+            with open(self._history_file,'r') as f:
+                # time on battery, last voltage
+                tobstr, hvoltstr = f.readline().split(",")
+                self.robot.tob = float(tobstr)
+                self.last_volt = float(hvoltstr)
+        except IOError:
+            # file does not exist
+            self.robot.tob = 0
+            self.last_volt = 0
+        self.last_read = time.time()
+        # we will update the history in etc/battery.dat not at every update() cycle
+        self.history_update = 0
 
     def screen_from_config(self, config):
         screenCls = globals()[config['class']]
@@ -65,5 +87,23 @@ class UIScreenLoop(pypot.utils.StoppableLoopThread):
         self.screen.navDown()
 
     def update(self):
-        self.screen.show()
+        # read current voltage
+        self.robot.voltage.read()
+        # tob update
+        now = time.time()
+        self.robot.tob += (now - self.last_read)
+        self.last_read = now
+        if self.robot.voltage()-self.last_volt > 0.10:
+            # an sudden increase of more than 0.1V for the average
+            # this means at least a 1V change in the voltage
+            # we assume the batteries changed
+            # reset the TOB and history start
+            self.robot.tob = 0
+        self.last_volt = self.robot.voltage()
 
+        # update history every 60 clycles ~ 30s
+        self.history_update = (self.history_update + 1) % 60
+        if self.history_update == 0:
+            with open(self._history_file, 'w') as f:
+                f.write("{},{}\n".format(self.robot.tob, self.robot.voltage()))
+        self.screen.show()

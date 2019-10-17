@@ -1,0 +1,23 @@
+{
+    "stand_up" : {
+        "position" : {
+            "hz": 0, "hy": 0,
+            "rsx": 0, "rsy": 0, "raz": 0, "rey": 0,
+            "lsx": 0, "lsy": 0, "laz": 0, "ley": 0,
+            "rhz": 0, "rhx": 0, "rhy": 0, "rky": 0, "ray": 0, "rax":0,
+            "lhz": 0, "lhx": 0, "lhy": 0, "lky": 0, "lay": 0, "lax":0 
+        },
+        "duration": 1.5
+    },
+    
+    "sit_down": {
+        "position" : {
+            "hz": 0, "hy": 0,
+            "rsx": -15, "rsy": 0, "raz": 0, "rey": 0,
+            "lsx": -15, "lsy": 0, "laz": 0, "ley": 0,
+            "rhz": 0, "rhx": 0, "rhy": 0, "rky": 110, "ray": 100, "rax":0,
+            "lhz": 0, "lhx": 0, "lhy": 0, "lky": 110, "lay": 100, "lax":0
+        }, 
+        "duration": 1.5
+    }
+}

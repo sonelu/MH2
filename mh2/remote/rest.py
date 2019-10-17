@@ -16,7 +16,11 @@ class RESTRobotExt(RESTRobot):
     def turnLegsCompliant(self): self.robot.turnLegsCompliant()
     def turnHeadCompliant(self): self.robot.turnHeadCompliant()
     def turnCompliantOn(self): self.robot.compliant = True
-    def turnCompliantOff(self): self.robot.power_up() 
+    def turnCompliantOff(self): self.robot.power_up()
+    def toggleCompliant(self, motorlist, onoff):
+        motors = getattr(self.robot, motorlist)
+        for motor in motors:
+            setattr(motor, "compliant", onoff)
 
     # power
     def stopRobot(self): self.robot.ui.stopRobot()
@@ -39,3 +43,27 @@ class RESTRobotExt(RESTRobot):
     def dispStatus(self): self.robot.screen_loop.switchScreen('status')
     def dispPositions(self): self.robot.screen_loop.switchScreen('positions')
     def dispTemperatures(self): self.robot.screen_loop.switchScreen('temperatures')
+    def dispSplash(self, title, text, secs): self.robot.screen_loop.splashScreen(title, text, secs)
+
+    # camera
+    def get_camera_resolution(self): return self.robot.camera.get_resolution()
+    def get_frame(self): return self.robot.camera.get_frame().tolist()
+
+    # change motors attributes
+    def get_motors_attribute(self, motorlist, attribute):
+        motors = getattr(self.robot, motorlist)
+        results = {}
+        for motor in motors:
+            name = motor.name
+            value = getattr(motor, attribute)
+            results[name] = value
+        return results
+
+    def set_motors_attribute(self, motorlist, attribute, val):
+        motors = getattr(self.robot, motorlist)
+        try:
+            for motor in motors:
+                setattr(motor, attribute, val)
+        except TypeError:
+            # one motor given
+            setattr(motors, attribute, val)

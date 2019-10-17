@@ -11,26 +11,28 @@ class StatusScreen(BaseScreen):
 
     def __init__(self, display, robot, title, navigation):
         super(StatusScreen, self).__init__(display, robot, title, navigation)
+        self.voltage = 0
+        self.voltage_samples = 0
 
     def _drawHBar(self, canvas, y, perc, ltext, rtext):
         """ Draws a horizontal bar with text on the left (4 chars) and
         text on the right (4-5 chars)
         """
-        b = 60    # bar length
-        h = 9     # bar height
-        l = 30    # left align bar
+        b = 66    # bar length
+        h = 8     # bar height
+        l = 27    # left align bar
         g = 4     # gap on the right after bar
 
-        canvas.text((2, y), ltext, fill="white", font=self.font) # text on left of bar
+        canvas.text((2, y), ltext, fill="white", font=self.font9) # text on left of bar
         bar = int(perc*b)
         canvas.rectangle((l, y, l+bar, y+h), outline="black", fill="white")
-        canvas.text((b+l+g, y), rtext, fill="white", font=self.font)
+        canvas.text((b+l+g, y), rtext, fill="white", font=self.font9)
 
     def render(self, draw):
         super(StatusScreen, self).render(draw)
 
         f = self.avail[0][1]    # position for first line
-        d = 10    # spacing between lines
+        d = 9    # spacing between lines
         pos = f
         # cpu
         cpu, _, _ = psutil.getloadavg()
@@ -46,7 +48,7 @@ class StatusScreen(BaseScreen):
         # governor
         with open('/sys/devices/system/cpu/cpufreq/policy0/scaling_governor', 'r') as f:
             gov = f.readline()
-        draw.text((2, pos), "Gov: {}".format(gov), fill="white", font=self.font)
+        draw.text((2, pos), "Gov: {}".format(gov), fill="white", font=self.font9)
         pos += d
         # cpu temp
         temp = psutil.sensors_temperatures()['cpu_thermal'][0].current
@@ -63,19 +65,17 @@ class StatusScreen(BaseScreen):
         # dotted line
         draw.point(zip(range(0,128,2), repeat(pos+1)), fill="white")
         pos += 3
-        # battery
-        volts = np.mean([m.present_voltage for m in self.robot.motors])
-        max_v = 8.0            # max voltage to represent (100%)
-        min_v = 6.0            # min voltage to represent (0%)
-        volts = min(volts, max_v)     # in case there is above max_v
-        perc = (volts - min_v)/(max_v - min_v)
-        self._drawHBar(draw, pos, perc, "Bat:", '{:.1f}'.format(volts))
+        self._drawHBar(draw, pos, self.robot.voltage.perc, "Bat:", '{:.1f}'.format(self.robot.voltage()))
         pos += d
-        # uptime
+        # bat time and uptime
         uptime = time.time() - psutil.boot_time()
-        uptimestr = "UpT: {:2.0f}h:{:2.0f}m:{:2.0f}s".format(uptime//3600, uptime%3600//60, uptime%60)
-        draw.text((2, pos), uptimestr, fill="white", font=self.font)
+        tob = self.robot.tob
+        tobstr = "ToB: {:02.0f}h:{:02.0f}m:{:02.0f}s".format(tob//3600, tob%3600//60, tob%60)
+        draw.text((2, pos), tobstr, fill="white", font=self.font9)
         pos += d
+        uptstr = "UpT: {:02.0f}h:{:02.0f}m:{:02.0f}s".format(uptime//3600, uptime%3600//60, uptime%60)
+        draw.text((2, pos), uptstr, fill="white", font=self.font9)
+        pos += 9
         # dotted line
         draw.point(zip(range(0,128,2), repeat(pos+1)), fill="white")
         pos += 3
@@ -93,11 +93,11 @@ class StatusScreen(BaseScreen):
                     wifi_ip = dev.Ip4Config.Addresses[0][0]
         except:
             pass
-        draw.text((2, pos), "WFi: {}".format(wifi_state), fill="white", font=self.font)
+        draw.text((2, pos), "WFi: {}".format(wifi_state), fill="white", font=self.font9)
         pos += d
         self._drawHBar(draw, pos, wifi_strength, "WFi:", "{:.0f}%".format(wifi_strength*100))
         pos += d
-        draw.text((2, pos), "IP4: {}".format(wifi_ip), fill="white", font=self.font)
+        draw.text((2, pos), "IP4: {}".format(wifi_ip), fill="white", font=self.font9)
         pos += d
 
 class HistoScreen(BaseScreen):

@@ -1,0 +1,261 @@
+{
+    "controllers": {
+        "USB0": {
+            "sync_read": true,
+            "attached_motors": [
+                "lsy",
+                "lsx",
+                "laz",
+                "ley"],
+            "port": "/dev/ttyUSB0",
+            "protocol": 2
+         },
+
+         "USB1": {
+            "sync_read": true,
+            "attached_motors": [
+                "lhx",
+                "lhy",
+                "lhz",
+                "lky",
+                "lay",
+                "lax"],
+            "port": "/dev/ttyUSB1",
+            "protocol": 2
+         },
+
+         "USB2": {
+            "sync_read": true,
+            "attached_motors": [
+                "rhx",
+                "rhy",
+                "rhz",
+                "rky",
+                "ray",
+                "rax"],
+            "port": "/dev/ttyUSB2",
+            "protocol": 2
+         },
+        
+         "USB3": {
+            "sync_read": true,
+            "attached_motors": [
+                "rsy",
+                "rsx",
+                "raz",
+                "rey",
+                "hz",
+                "hy"],
+            "port": "/dev/ttyUSB3",
+            "protocol": 2
+         } 
+    },
+
+    "motorgroups": {
+        "left_arm": ["lsy", "lsx", "laz", "ley"],
+        "right_arm": ["rsy", "rsx", "raz", "rey"],
+        "left_leg": ["lhx", "lhy", "lhz", "lky", "lay", "lax"],
+        "right_leg": ["rhx", "rhy", "rhz", "rky", "ray", "rax"],
+        "head": ["hz", "hy"],
+        "arms": ["left_arm", "right_arm"],
+        "legs": ["left_leg", "right_leg"]
+    },
+
+    "motors": {
+        "rhz": {
+            "id": 11,
+            "offset": 0.0,
+            "type": "XL-320",
+            "orientation": "direct",
+            "angle_limit": [-120.0, 120.0],
+            "pid": [16,1,0]
+        },
+
+        "rhx": {
+            "id": 12,
+            "offset": 0.0,
+            "type": "XL-320",
+            "orientation": "indirect",
+            "angle_limit": [-120.0, 120.0],
+            "pid": [16,1,0]
+        },
+
+        "rhy": {
+            "id": 13,
+            "offset": 0.0,
+            "type": "XL-320",
+            "orientation": "indirect",
+            "angle_limit": [-120.0, 120.0],
+            "pid": [16,1,0]
+        },
+
+        "rky": {
+            "id": 14,
+            "offset": 0.0,
+            "type": "XL-320",
+            "orientation": "direct",
+            "angle_limit": [-120.0, 120.0],
+            "pid": [16,1,0]
+        },
+
+        "ray": {
+            "id": 15,
+            "offset": 0.0,
+            "type": "XL-320",
+            "orientation": "indirect",
+            "angle_limit": [-120.0, 120.0],
+            "pid": [16,1,0]
+        },
+
+        "rax": {
+            "id": 16,
+            "offset": 0.0,
+            "type": "XL-320",
+            "orientation": "direct",
+            "angle_limit": [-120.0, 120.0],
+            "pid": [16,1,0]
+        },
+
+        "lhz": {
+            "id": 21,
+            "offset": 0.0,
+            "type": "XL-320",
+            "orientation": "indirect",
+            "angle_limit": [-120.0, 120.0],
+            "pid": [16,1,0]
+        },
+
+        "lhx": {
+            "id": 22,
+            "offset": 0.0,
+            "type": "XL-320",
+            "orientation": "direct",
+            "angle_limit": [-120.0, 120.0],
+            "pid": [16,1,0]
+        },
+
+        "lhy": {
+            "id": 23,
+            "offset": 0.0,
+            "type": "XL-320",
+            "orientation": "direct",
+            "angle_limit": [-120.0, 120.0],
+            "pid": [16,1,0]
+        },
+
+        "lky": {
+            "id": 24,
+            "offset": 0.0,
+            "type": "XL-320",
+            "orientation": "indirect",
+            "angle_limit": [-120.0, 120.0],
+            "pid": [16,1,0]
+        },
+
+        "lay": {
+            "id": 25,
+            "offset": 0.0,
+            "type": "XL-320",
+            "orientation": "direct",
+            "angle_limit": [-120.0, 120.0],
+            "pid": [16,1,0]
+        },
+
+        "lax": {
+            "id": 26,
+            "offset": 0.0,
+            "type": "XL-320",
+            "orientation": "indirect",
+            "angle_limit": [-120.0, 120.0],
+            "pid": [16,1,0]
+        },
+
+        "hz": {
+            "id": 36,
+            "offset": 0.0,
+            "type": "XL-320",
+            "orientation": "indirect",
+            "angle_limit": [-120.0, 120.0]
+        },
+
+        "hy": {
+            "id": 37,
+            "offset": -30.0,
+            "type": "XL-320",
+            "orientation": "indirect",
+            "angle_limit": [-120.0, 120.0]
+        },
+
+        "lsy": {
+            "id": 41,
+            "offset": 0.0,
+            "type": "XL-320",
+            "orientation": "indirect",
+            "angle_limit": [-150.0, 150.0],
+            "pid": [8,2,0]
+        },
+
+        "lsx": {
+            "id": 42,
+            "offset": -75.0,
+            "type": "XL-320",
+            "orientation": "direct",
+            "angle_limit": [-120.0, 120.0],
+            "pid": [8,2,0]
+        },
+
+        "laz": {
+            "id": 43,
+            "offset": 0.0,
+            "type": "XL-320",
+            "orientation": "indirect",
+            "angle_limit": [-120.0, 120.0],
+            "pid": [8,2,0]
+        },
+
+        "ley": {
+            "id": 44,
+            "offset": 0.0,
+            "type": "XL-320",
+            "orientation": "indirect",
+            "angle_limit": [-120.0, 120.0],
+            "pid": [8,2,0]
+        },
+
+        "rsy": {
+            "id": 51,
+            "offset": 0.0,
+            "type": "XL-320",
+            "orientation": "direct",
+            "angle_limit": [-150.0, 150.0],
+            "pid": [8,2,0]
+        },
+
+        "rsx": {
+            "id": 52,
+            "offset": -75.0,
+            "type": "XL-320",
+            "orientation": "indirect",
+            "angle_limit": [-120.0, 120.0],
+            "pid": [8,2,0]
+        },
+
+        "raz": {
+            "id": 53,
+            "offset": 0.0,
+            "type": "XL-320",
+            "orientation": "direct",
+            "angle_limit": [-120.0, 120.0],
+            "pid": [8,2,0]
+        },
+
+        "rey": {
+            "id": 54,
+            "offset": 0.0,
+            "type": "XL-320",
+            "orientation": "direct",
+            "angle_limit": [-120.0, 120.0],
+            "pid": [8,2,0]
+        }
+    }
+}
